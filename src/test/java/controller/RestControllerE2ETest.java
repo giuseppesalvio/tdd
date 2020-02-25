@@ -1,8 +1,10 @@
 package controller;
 
 import com.arca.poc.PocApplication;
+import com.arca.poc.dominio.TotaleAccountBancaPostRequest;
 import com.arca.poc.dominio.TotaleBancaResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -21,8 +23,10 @@ import org.springframework.test.web.servlet.ResultActions;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.IsInstanceOf.instanceOf;
+import static org.springframework.http.MediaType.APPLICATION_JSON_UTF8;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = PocApplication.class)
@@ -43,17 +47,27 @@ public class RestControllerE2ETest {
         Assertions.assertEquals(expected, mvcResult.getResponse().getContentAsString());
 
 
-
     }
 
 
+    @Test
+    public void getTotaleAccountBancaPost() throws Exception {
 
-    public static String asJsonString(final Object obj) {
-        try {
-            return new ObjectMapper().writeValueAsString(obj);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+        TotaleAccountBancaPostRequest idInput =  TotaleAccountBancaPostRequest.builder().id("1").build();
+        ObjectMapper mapper = new ObjectMapper();
+
+        ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
+        String requestJson=ow.writeValueAsString(idInput );
+
+        MvcResult mvcResult =   mvc.perform(post("/totaleAccountBancaPost").contentType(MediaType.APPLICATION_JSON_UTF8)
+                .content(requestJson))
+                .andExpect(status().isOk()).andReturn();
+
+
+
+        String expected = "{\"codiceCliente\":\"1\",\"totaleConto\":11111}";
+        Assertions.assertEquals(expected, mvcResult.getResponse().getContentAsString());
+
 
     }
-    }
+}
