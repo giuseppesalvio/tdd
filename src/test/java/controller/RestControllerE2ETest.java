@@ -49,6 +49,19 @@ public class RestControllerE2ETest {
 
     }
 
+    @Test
+    public void getTotaleAccountBancaConEccezione() throws Exception {
+
+        String idInput = "ABC";
+        MvcResult mvcResult = mvc.perform(get("/totaleAccountBanca").param("id", idInput).contentType(MediaType.APPLICATION_JSON)).andReturn();
+
+
+        String expected = "{\"codiceCliente\":\"1\",\"totaleConto\":11111}";
+        Assertions.assertEquals(expected, mvcResult.getResponse().getContentAsString());
+
+
+    }
+
 
     @Test
     public void getTotaleAccountBancaPost() throws Exception {

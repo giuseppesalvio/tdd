@@ -3,6 +3,7 @@ package com.arca.poc.controller;
 import com.arca.poc.dominio.TotaleAccountBancaPostRequest;
 import com.arca.poc.dominio.TotaleBancaResponse;
 import com.arca.poc.entity.ContoCorrente;
+import com.arca.poc.logger.GestoreEccezioni;
 import com.arca.poc.service.TottaleAccountBancaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -11,7 +12,7 @@ import java.math.BigDecimal;
 
 
 @RestController
-public class ControllerEsempio {
+public class ControllerEsempio extends GestoreEccezioni {
 
     @Autowired
     private TottaleAccountBancaService tottaleAccountBancaService ;

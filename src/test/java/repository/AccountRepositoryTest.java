@@ -32,4 +32,13 @@ public class AccountRepositoryTest {
 
     }
 
+    @Test
+    public void estraiSaldoContoPerIdScrutturaLOG (){
+
+        ContoCorrente response = accountRepository.getTotaleContoPerAccount("wsd");
+
+
+
+    }
+
 }
