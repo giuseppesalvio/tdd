@@ -12,9 +12,9 @@ public class GestoreEccezioni {
     private static final Logger logger = LogManager.getLogger(AccountRepository.class);
 
     @ExceptionHandler(Exception.class)
-    public void gesteroEccezioni(){
+    public void gesteroEccezioni(Exception e){
 
-        logger.info("Eccezione" );
+        logger.info("Eccezione " + e);
 
 
     }

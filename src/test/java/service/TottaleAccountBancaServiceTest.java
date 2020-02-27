@@ -35,7 +35,7 @@ public class TottaleAccountBancaServiceTest {
         when(accountRepository.getTotaleContoPerAccount(anyString())).thenReturn(contoCorrente );
         ContoCorrente result = tottaleAccountBancaService.getTotaleBAncaArrotndatoDaDB("id");
 
-verify(accountRepository).getTotaleContoPerAccount("id");
+        verify(accountRepository).getTotaleContoPerAccount("id");
         Assertions.assertEquals("id", result.getId());
         Assertions.assertEquals(123, result.getSaldo());
 
