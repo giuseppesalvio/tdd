@@ -10,37 +10,39 @@ import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
 
-
 @RestController
 public class ControllerEsempio extends GestoreEccezioni {
 
-    @Autowired
-    private TottaleAccountBancaService tottaleAccountBancaService ;
+  @Autowired private TottaleAccountBancaService tottaleAccountBancaService;
 
-    @GetMapping("/totaleAccountBanca")
-    public TotaleBancaResponse getTotaleAccountBanca(@RequestParam(value = "id") String id) {
+  @GetMapping("/totaleAccountBanca")
+  public TotaleBancaResponse getTotaleAccountBanca(@RequestParam(value = "id") String id) {
 
-        ContoCorrente totaleBAncaArrotndatoDaDB = tottaleAccountBancaService.getTotaleBAncaArrotndatoDaDB(id);
+    ContoCorrente totaleBAncaArrotndatoDaDB =
+        tottaleAccountBancaService.getTotaleBAncaArrotndatoDaDB(id);
 
+    TotaleBancaResponse TotaleBancaResponse =
+        com.arca.poc.dominio.TotaleBancaResponse.builder()
+            .totaleConto(BigDecimal.valueOf(totaleBAncaArrotndatoDaDB.getSaldo()))
+            .codiceCliente(totaleBAncaArrotndatoDaDB.getId())
+            .build();
 
-        TotaleBancaResponse TotaleBancaResponse = com.arca.poc.dominio.TotaleBancaResponse.builder().totaleConto(BigDecimal.valueOf(totaleBAncaArrotndatoDaDB.getSaldo())).codiceCliente(totaleBAncaArrotndatoDaDB.getId()).build();
+    return TotaleBancaResponse;
+  }
 
+  @PostMapping("/totaleAccountBancaPost")
+  public TotaleBancaResponse getTotaleAccountBancaPost(
+      @RequestBody TotaleAccountBancaPostRequest request) {
 
-        return TotaleBancaResponse;
-    }
+    ContoCorrente totaleBAncaArrotndatoDaDB =
+        tottaleAccountBancaService.getTotaleBAncaArrotndatoDaDB(request.getId());
 
+    TotaleBancaResponse TotaleBancaResponse =
+        com.arca.poc.dominio.TotaleBancaResponse.builder()
+            .totaleConto(BigDecimal.valueOf(totaleBAncaArrotndatoDaDB.getSaldo()))
+            .codiceCliente(totaleBAncaArrotndatoDaDB.getId())
+            .build();
 
-
-    @PostMapping("/totaleAccountBancaPost")
-    public TotaleBancaResponse getTotaleAccountBancaPost(@RequestBody TotaleAccountBancaPostRequest request) {
-
-
-        ContoCorrente totaleBAncaArrotndatoDaDB = tottaleAccountBancaService.getTotaleBAncaArrotndatoDaDB(request.getId());
-
-
-        TotaleBancaResponse TotaleBancaResponse = com.arca.poc.dominio.TotaleBancaResponse.builder().totaleConto(BigDecimal.valueOf(totaleBAncaArrotndatoDaDB.getSaldo())).codiceCliente(totaleBAncaArrotndatoDaDB.getId()).build();
-
-
-        return TotaleBancaResponse;    }
-
+    return TotaleBancaResponse;
+  }
 }

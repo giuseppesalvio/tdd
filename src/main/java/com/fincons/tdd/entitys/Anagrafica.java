@@ -1,4 +1,4 @@
-package com.arca.poc.entity;
+package com.fincons.tdd.entitys;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +9,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 @Builder
-public class ContoCorrente {
-  private String id;
-  private Integer saldo;
+public class Anagrafica {
+  private Integer id;
+  private String nome;
+  private String cognome;
+  private String codiceFiscale;
 }

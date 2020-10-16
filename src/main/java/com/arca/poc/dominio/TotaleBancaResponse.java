@@ -12,8 +12,6 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @NoArgsConstructor
 public class TotaleBancaResponse {
-
-    public String codiceCliente;
-
-    public BigDecimal totaleConto;
+  public String codiceCliente;
+  public BigDecimal totaleConto;
 }

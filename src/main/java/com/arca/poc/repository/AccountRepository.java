@@ -9,15 +9,13 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class AccountRepository {
 
+  @Autowired JdbcTemplate jdbcTemplate;
 
-    @Autowired
-    JdbcTemplate jdbcTemplate;
+  public ContoCorrente getTotaleContoPerAccount(String id) {
 
-    public ContoCorrente getTotaleContoPerAccount(String id) {
-
-      return  jdbcTemplate.queryForObject("select * from contoCorrente  where id=?", new Object[] {id
-    },
-                new BeanPropertyRowMapper<>(ContoCorrente.class));
-
-    }
+    return jdbcTemplate.queryForObject(
+        "select * from contoCorrente  where id=?",
+        new Object[] {id},
+        new BeanPropertyRowMapper<>(ContoCorrente.class));
+  }
 }
